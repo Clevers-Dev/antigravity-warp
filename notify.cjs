@@ -103,12 +103,9 @@ async function main() {
       };
       emitToTerminal(`\x1b]777;notify;warp://cli-agent;${JSON.stringify(payload)}\x07`);
 
-      // Notificacion de escritorio nativa e in-app en Warp (OSC 777)
+      // Notificacion nativa UNICA en Warp (OSC 777)
       const summary = query ? query.slice(0, 80) : 'Listo para avanzar';
       emitToTerminal(`\x1b]777;notify;Antigravity;${summary}\x07`);
-
-      // Notificacion estandar OSC 9
-      emitToTerminal(`\x1b]9;Antigravity: ${summary}\x07`);
 
       // Chime / campana de terminal
       emitToTerminal('\x07');
