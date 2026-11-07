@@ -1,0 +1,30 @@
+{
+  "antigravity-warp": {
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "node notify.cjs pre_invocation",
+        "timeout": 5
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "node notify.cjs stop",
+        "timeout": 5
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node notify.cjs post_tool",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

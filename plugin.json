@@ -1,0 +1,24 @@
+{
+  "name": "antigravity-warp",
+  "version": "1.0.0",
+  "description": "Native Warp Terminal integration for Antigravity with live tab titles, status icons, agent protocol, and desktop notifications",
+  "author": {
+    "name": "Clevers Dev",
+    "url": "https://github.com/Clevers-Dev"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/Clevers-Dev/antigravity-warp",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Clevers-Dev/antigravity-warp"
+  },
+  "keywords": [
+    "antigravity",
+    "antigravity-plugin",
+    "gemini-cli",
+    "warp",
+    "warp-terminal",
+    "notifications",
+    "agent"
+  ]
+}
