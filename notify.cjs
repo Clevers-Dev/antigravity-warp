@@ -31,7 +31,7 @@ async function main() {
 
   // 2. Helper para emitir secuencias de escape directamente a la consola
   // En Windows, escribir a //./CONOUT$ evita contaminar el stdout que Antigravity parsea.
-  // En Unix/macOS, escribir a /dev/tty hace lo equivalente.
+  // En Unix/macOS, escribir a /dev/tty cumple la misma funcion.
   function emitToTerminal(seq) {
     const devices = ['//./CONOUT$', '/dev/tty'];
     for (const dev of devices) {
@@ -52,6 +52,9 @@ async function main() {
       // Tab title en Warp: indicador de trabajo activo
       emitToTerminal('\x1b]0;⏳ [Antigravity] Pensando...\x07');
 
+      // Barra de progreso nativa en la pestaña (OSC 9;4 estado 1: indeterminado / spinner)
+      emitToTerminal('\x1b]9;4;1;0\x07');
+
       // Warp CLI Agent Protocol
       const payload = {
         v: 1,
@@ -68,6 +71,9 @@ async function main() {
       const toolName = (inputData.toolCall && inputData.toolCall.name) || 'herramienta';
       emitToTerminal(`\x1b]0;⚡ [Antigravity] ${toolName}...\x07`);
 
+      // Mantener progreso activo
+      emitToTerminal('\x1b]9;4;1;0\x07');
+
       const payload = {
         v: 1,
         agent: 'antigravity',
@@ -80,6 +86,9 @@ async function main() {
     } else if (eventType === 'stop') {
       // Tab title en Warp: indicador de completado
       emitToTerminal('\x1b]0;✅ [Antigravity] Listo\x07');
+
+      // Limpiar barra de progreso en la pestaña (OSC 9;4 estado 0: limpiar)
+      emitToTerminal('\x1b]9;4;0;0\x07');
 
       // Warp CLI Agent Protocol
       const payload = {
@@ -100,6 +109,9 @@ async function main() {
 
       // Notificacion estandar OSC 9
       emitToTerminal(`\x1b]9;Antigravity: ${summary}\x07`);
+
+      // Chime / campana de terminal
+      emitToTerminal('\x07');
     }
   } catch {
     // Ignorar errores al emitir a la terminal para asegurar no bloquear el agente
